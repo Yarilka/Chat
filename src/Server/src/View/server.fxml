@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.TextArea?>
+
+<AnchorPane fx:id="mainPanel" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ControllerServer">
+    <HBox fx:id="topPanel" prefHeight="50" prefWidth="Infinity" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
+          AnchorPane.topAnchor="0">
+        <Button id="start" fx:id="but" text="Старт" onAction="#startServ" prefHeight="20" prefWidth="150"
+                HBox.hgrow="SOMETIMES">
+            <HBox.margin>
+                <Insets left="30" top="15"/>
+            </HBox.margin>
+        </Button>
+        <Label id="label" fx:id="status" text="Сервер остановлен" prefWidth="200">
+            <HBox.margin>
+                <Insets left="30" top="15"/>
+            </HBox.margin>
+        </Label>
+        <HBox id="clients">
+        <Label id="clientText" text="Клиенты:" prefWidth="60"/>
+        <Label id="clientCount" fx:id="clientCount" text="0" prefWidth="10"/>
+            <HBox.margin>
+                <Insets top="15" bottom="20"/>
+            </HBox.margin>
+        </HBox>
+    </HBox>
+    <TextArea id="text" fx:id="textArea" AnchorPane.rightAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.bottomAnchor="0"
+              AnchorPane.topAnchor="50" editable="false" wrapText="true"/>
+</AnchorPane>

@@ -1,0 +1,40 @@
+#start {
+    -fx-text-fill: #006600;
+    -fx-font-weight: bold;
+}
+
+#stop {
+    -fx-text-fill: #660000;
+    -fx-font-weight: bold;
+}
+
+#label {
+    -fx-text-fill: #0000ff;
+    -fx-text-align: right;
+    -fx-font-size: 16px;
+    -fx-font-weight: bolder;
+}
+
+#worked {
+    -fx-text-fill: #009900;
+    -fx-text-align: right;
+    -fx-font-size: 18px;
+    -fx-font-style: italic;
+}
+
+#text {
+    -fx-border-style: solid;
+    -fx-border-color: #004400;
+    -fx-border-width: 2px;
+}
+
+#clients {
+    -fx-text-fill: blue;
+    -fx-border-style: dashed;
+    -fx-border-color: skyblue;
+    -fx-border-width: 3px;
+}
+
+#clientText {
+    -fx-text-fill: red;
+}

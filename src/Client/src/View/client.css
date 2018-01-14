@@ -1,0 +1,11 @@
+#clientsPanel {
+    -fx-border-style: solid;
+    -fx-border-color: #004400;
+    -fx-border-width: 2px;
+}
+
+#textArea {
+    -fx-border-style: dotted;
+    -fx-border-color: #000B90;
+    -fx-border-width: 3px;
+}

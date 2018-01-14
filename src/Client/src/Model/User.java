@@ -54,7 +54,7 @@ public class User implements ReadUser, SendUser {
 
     @Override
     public void readSys(String msg) {
-        System.out.println("System msg - " + msg);
+        System.out.println("System msg -- " + msg);
         if (msg.startsWith("/authok")) {
             contr.setAuthorized(true);
             myNick = msg.split("\\s")[1];

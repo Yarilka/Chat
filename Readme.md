@@ -1,28 +1,14 @@
-NetChat on the JavaFX (Server)
+NetChat on the JavaFX (Client - Server)
 ==================
 	My first net project with UI
 ***
-Classes Server
+Application
 ------------------------
-`MainServer` - Main class Server.
+Server use SQL database for method authorize users.
 
-`MyServer` - Class initalize, start, stop server.
+The client connects to the server via the socket.
 
-`ClientHandler` - Class of handler client.
-
-`Read & Send` - Classes of handlers for received and sent messages.
-
-`ControllerServer` - Class of UI handler.
-
-Classes Client
-------------------------
-`MainClient` - Main class Client.
-
-`Connect` - Class of handler connect.
-
-`User` - Class of handler user send and received messages.
-
-`ControllerClient & ControllerTab` - Class of UI handler.
+Styles use CSS.
 
 #### System commands
 ***/end*** - Disconnect.

@@ -1,5 +1,7 @@
 package Model;
 
+import javafx.application.Platform;
+
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.net.Socket;
@@ -58,10 +60,15 @@ public class ReadClass {
                                 me.sendMsg("Указанный ник уже кем-то занят");
                             }
                         }
-//                        if (str.startsWith("/private")){
-//                            String[] tokens = str.split("\\s",3);
-//                            me.send.sendPrivateMsg(me, tokens[1], tokens[2]);
-//                        }
+                        if (str.startsWith("/private")){
+                            String[] tokens = str.split("\\s",3);
+                            Platform.runLater(new Runnable() {
+                                @Override
+                                public void run() {
+                                    me.send.sendPrivateMsg(me, tokens[1], tokens[2]);
+                                }
+                            });
+                        }
                     } else {
                         me.send.broadcastMsg(me.getName() + ": " + str);
                     }

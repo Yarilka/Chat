@@ -24,7 +24,7 @@ public class SendClass {
         for (ClientHandler o : clients) {
             if (o.getName().equals(nickTo)) {
                 o.sendMsg("/private "+from.name+" "+msg);
-                from.sendMsg("/private "+nickTo+" "+msg);
+                from.sendMsg("/private "+o.name+" "+msg);
                 return;
             }
         }

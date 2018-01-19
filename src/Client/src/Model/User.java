@@ -1,9 +1,7 @@
 package Model;
 
 import Controller.ControllerClient;
-import Controller.ControllerTab;
 import javafx.application.Platform;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 
 import java.io.*;
@@ -15,13 +13,11 @@ public class User implements ReadUser, SendUser {
     private DataOutputStream out;
     private String myNick;
     public ControllerClient contr;
-    public ControllerTab privateContr;
     private Connect connect;
     private PrintWriter log;
 
     public User(ControllerClient contr) {
         this.contr = contr;
-        privateContr = new ControllerTab();
         this.connect = new Connect();
         try {
             log = new PrintWriter("localHistory.txt");
@@ -46,7 +42,7 @@ public class User implements ReadUser, SendUser {
                 }
             } catch (IOException e) {
                 e.printStackTrace();
-            }finally {
+            } finally {
                 connect.closeConnection();
             }
         }).start();
@@ -86,16 +82,16 @@ public class User implements ReadUser, SendUser {
             myNick = msg.split("\\s")[1];
             Platform.runLater(() -> MainClient.mainStage.setTitle("JavaFX Client: " + myNick));
         }
-//        if (msg.startsWith("/private")) {
-//            readPrivate(msg);
-//        }
+        if (msg.startsWith("/private")) {
+            readPrivate(msg);
+        }
 
     }
 
     @Override
     public void readPrivate(String msg) {
-        String[] s = msg.split("\\s",3);
-        privateContr.privateMsg(s[1],s[2]);
+        String[] s = msg.split("\\s", 3);
+        contr.privateMsg(s[1], s[2]);
     }
 
     @Override
@@ -106,7 +102,7 @@ public class User implements ReadUser, SendUser {
     @Override
     public void sendMsg(String msg) {
         if (msg.equals("/help")) {
-            showAlert("HELP:\n\\w - шепнуть\n\\changenick - сменить ник\n\\end - выйти из чата");
+            showAlert("HELP:\n\\w 'nick' - шепнуть\n\\changenick 'new nick' - сменить ник\n\\end - выйти из чата\n\\private 'name' - сообщение в приватной комнате");
             //textArea.appendText("HELP:\n\\w - шепнуть\\changenick - сменить ник\\end - выйти из чата");
             return;
         }

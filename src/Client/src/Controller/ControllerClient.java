@@ -6,6 +6,8 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -23,6 +25,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import static javafx.fxml.FXMLLoader.load;
+import static javafx.scene.layout.Priority.ALWAYS;
 
 public class ControllerClient implements Initializable {
     public HBox upperPanel;
@@ -40,6 +43,11 @@ public class ControllerClient implements Initializable {
     public AnchorPane mainPane;
 
     public ObservableList<String> obsClients;
+
+    public VBox privateVB;
+    public TextArea privateTA;
+    public HBox privateBP;
+    public TextField privateTF;
 
     private boolean authorized;
 
@@ -122,5 +130,89 @@ public class ControllerClient implements Initializable {
         textArea.appendText(msg);
     }
 
+    public void privateMsg(String nickFrom, String msg) {
+        for (Tab t : tabPane.getTabs()) {
+            if (t.getId().equals(nickFrom)) {
+                System.out.println("Id: " + t.getId() + " Msg: " + msg);
+                VBox vb = (VBox) t.getContent();
+                TextArea ta = (TextArea) vb.getChildren().get(0);
+                ta.appendText(msg+"\n");
 
+                clientsTP.setFocusTraversable(false);
+                clientsList.setFocusTraversable(false);
+
+                HBox hb = (HBox) vb.getChildren().get(1);
+                hb.getChildren().get(0).setFocusTraversable(true);
+                return;
+            }
+        }
+        newTab(nickFrom, msg);
+    }
+
+    private void newTab(String nickFrom, String msg) {
+        Tab tab = new Tab(nickFrom);
+        tab.setId(nickFrom);
+
+        VBox vb = new VBox();
+        vb.setId("VB"+nickFrom);
+
+        TextArea ta = new TextArea();
+        ta.setId("TA"+nickFrom);
+        ta.setEditable(false);
+        ta.setWrapText(true);
+
+        HBox hb = new HBox();
+        hb.setId("HB"+nickFrom);
+
+        TextField tf = new TextField();
+        tf.setId("TF"+nickFrom);
+        tf.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                onSendPrivateMsg(tf);
+            }
+        });
+
+        Button bt = new Button("Send to "+nickFrom);
+        bt.setId("BT"+nickFrom);
+        bt.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                    onSendPrivateMsg(tf);
+            }
+        });
+
+        hb.getChildren().addAll(tf,bt);
+        hb.setHgrow(tf,ALWAYS);
+        vb.getChildren().addAll(ta,hb);
+        vb.setVgrow(ta,ALWAYS);
+        tab.setContent(vb);
+
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                tabPane.getTabs().add(tab);
+            }
+        });
+        System.out.println("Табы - " + tabPane.getTabs().size());
+
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        tabPane.getSelectionModel().select(tab);
+        ta.setFocusTraversable(false);
+        bt.setFocusTraversable(false);
+        tf.setFocusTraversable(true);
+
+        privateMsg(nickFrom, msg);
+    }
+
+    public void onSendPrivateMsg(TextField tf) {
+        MainClient.user.sendMsg("/private " + tabPane.getSelectionModel().getSelectedItem().getText()+" "+tf.getText());
+        tf.clear();
+        tf.requestFocus();
+    }
 }

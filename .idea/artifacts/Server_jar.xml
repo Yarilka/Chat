@@ -3,10 +3,10 @@
     <output-path>$PROJECT_DIR$/out/artifacts/Server_jar</output-path>
     <root id="archive" name="Server.jar">
       <element id="module-output" name="Server" />
-      <element id="file-copy" path="$PROJECT_DIR$/src/Server/chat.db" />
       <element id="file-copy" path="$PROJECT_DIR$/src/Server/src/View/server.css" />
-      <element id="library" level="project" name="sqlite-jdbc-3.16.1" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/src/Server/sqlite-jdbc-3.16.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/sqlite-jdbc-3.16.1.jar" path-in-jar="/" />
+      <element id="file-copy" path="$PROJECT_DIR$/sqlite-jdbc-3.16.1.jar" />
+      <element id="file-copy" path="$PROJECT_DIR$/src/Server/chat.db" />
     </root>
   </artifact>
 </component>
